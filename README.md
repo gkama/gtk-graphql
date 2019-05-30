@@ -5,8 +5,11 @@ sample project for `GraphQL` for `.NET Core`. it uses the following technologies
 - GraphQL with ui/playground
 - Entity Framework Core for creating a in-memory database with sample datasets
 - Defined query and schema for countries with neighbouring countries
+- Docker image
 
 the initial scaffolding is in `Start.cs` and then the rest is done through objects inheriting from GraphQL's classes. it defines a base class of `Country.cs`, `CountryNeighbour.cs` and the corresponding `...Type` classes that inherit `ObjectGraphType<T>`. then the schema and query is defined, which are used by the `ui/playground` endpoint for the client side to work it and create queries
+
+a docker image is also available via `docker pull gkama/dotnet:graphql`
 
 a sample request would go like this
 
