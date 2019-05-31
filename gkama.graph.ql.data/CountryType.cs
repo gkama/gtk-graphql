@@ -15,6 +15,7 @@ namespace gkama.graph.ql.data
             Field(a => a.capital);
             Field(a => a.population);
             Field(a => a.currency_code);
+
             Field<ListGraphType<CountryNeighbourType>>("neighbours", resolve: context => context.Source.neighbour_countries);
             Field<CountryPostalCodeType>("postalcodes", resolve: context => context.Source.postal_codes);
         }

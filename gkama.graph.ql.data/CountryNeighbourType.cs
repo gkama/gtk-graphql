@@ -10,6 +10,8 @@ namespace gkama.graph.ql.data
             Field(a => a.code);
             Field(a => a.name);
             Field(a => a.country_geoname_id);
+
+            Field<CountryPostalCodeType>("postalcodes", resolve: context => context.Source.postal_codes);
         }
     }
 }
