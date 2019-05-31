@@ -6,5 +6,7 @@
         public string code { get; set; }
         public string name { get; set; }
         public int country_geoname_id { get; set; }
+
+        public CountryPostalCode postal_codes { get; set; }
     }
 }

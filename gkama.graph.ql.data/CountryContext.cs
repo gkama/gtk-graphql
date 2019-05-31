@@ -39,6 +39,12 @@ namespace gkama.graph.ql.data
             modelBuilder.Entity<CountryNeighbour>(e =>
             {
                 e.HasKey(p => p.geoname_id);
+
+                e.HasOne(p => p.postal_codes)
+                    .WithOne()
+                    .HasForeignKey<CountryPostalCode>(p => p.code)
+                    .HasPrincipalKey<CountryNeighbour>(p => p.code)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<CountryPostalCode>(e =>

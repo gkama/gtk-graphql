@@ -30,6 +30,7 @@ namespace gkama.graph.ql.services
             return context
                 .countries
                     .Include(x => x.neighbour_countries)
+                        .ThenInclude(x => x.postal_codes)
                     .Include(x => x.postal_codes)
                 .AsQueryable();
         }
