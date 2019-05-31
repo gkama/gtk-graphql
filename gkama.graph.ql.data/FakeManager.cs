@@ -28,6 +28,10 @@ namespace gkama.graph.ql.data
                 .neighbour_countries
                 .AddRangeAsync(GetFakeNeighborCountries());
 
+            await context
+                .postal_codes
+                .AddRangeAsync(GetFakePostalCodes());
+
             await context.SaveChangesAsync();
         }
 
@@ -93,6 +97,55 @@ namespace gkama.graph.ql.data
                     code = "FR",
                     name = "France",
                     country_geoname_id = 2510769
+                }
+            };
+        }
+
+        public IEnumerable<CountryPostalCode> GetFakePostalCodes()
+        {
+            return new List<CountryPostalCode>()
+            {
+                new CountryPostalCode()
+                {
+                    code = "US",
+                    num_postal_codes = 41468,
+                    min_postal_code = "00501",
+                    max_postal_code = "98000"
+                },
+                new CountryPostalCode()
+                {
+                    code = "CA",
+                    num_postal_codes = 1653,
+                    min_postal_code = "A0A",
+                    max_postal_code = "Y1A"
+                },
+                new CountryPostalCode()
+                {
+                    code = "MX",
+                    num_postal_codes = 144361,
+                    min_postal_code = "01000",
+                    max_postal_code = "99998"
+                },
+                new CountryPostalCode()
+                {
+                    code = "ES",
+                    num_postal_codes = 37867,
+                    min_postal_code = "01001",
+                    max_postal_code = "52080"
+                },
+                new CountryPostalCode()
+                {
+                    code = "PT",
+                    num_postal_codes = 206942,
+                    min_postal_code = "1000-001",
+                    max_postal_code = "9980-999"
+                },
+                new CountryPostalCode()
+                {
+                    code = "FR",
+                    num_postal_codes = 51667,
+                    min_postal_code = "01000",
+                    max_postal_code = "98799"
                 }
             };
         }

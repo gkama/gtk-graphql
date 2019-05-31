@@ -16,5 +16,6 @@ namespace gkama.graph.ql.data
         public string currency_code { get; set; }
 
         public ICollection<CountryNeighbour> neighbour_countries { get; set; } = new List<CountryNeighbour>();
+        public CountryPostalCode postal_codes { get; set; }
     }
 }

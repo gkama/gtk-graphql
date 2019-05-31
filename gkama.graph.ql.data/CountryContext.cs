@@ -10,6 +10,7 @@ namespace gkama.graph.ql.data
 
         public virtual DbSet<Country> countries { get; set; }
         public virtual DbSet<CountryNeighbour> neighbour_countries { get; set; }
+        public virtual DbSet<CountryPostalCode> postal_codes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,11 +28,22 @@ namespace gkama.graph.ql.data
                     .WithOne()
                     .HasForeignKey(p => p.country_geoname_id)
                     .IsRequired();
+
+                e.HasOne(p => p.postal_codes)
+                    .WithOne()
+                    .HasForeignKey<CountryPostalCode>(p => p.code)
+                    .HasPrincipalKey<Country>(p => p.code)
+                    .IsRequired();
             });
 
             modelBuilder.Entity<CountryNeighbour>(e =>
             {
                 e.HasKey(p => p.geoname_id);
+            });
+
+            modelBuilder.Entity<CountryPostalCode>(e =>
+            {
+                e.HasKey(p => p.code);
             });
         }
     }
