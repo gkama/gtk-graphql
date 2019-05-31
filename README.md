@@ -7,7 +7,7 @@ sample project for `GraphQL` for `.NET Core`. it uses the following technologies
 - Defined query and schema for countries with neighbouring countries
 - Docker image
 
-the initial scaffolding is in `Start.cs` and then the rest is done through objects inheriting from GraphQL's classes. it defines a base class of `Country.cs`, `CountryNeighbour.cs` and the corresponding `...Type` classes that inherit `ObjectGraphType<T>`. then the schema and query is defined, which are used by the `ui/playground` endpoint for the client side to work it and create queries
+the initial scaffolding is in `Start.cs` and then the rest is done through objects inheriting from GraphQL's classes. it defines a base class of `Country.cs`, `CountryNeighbour.cs`, `CountryPostalCode` and the corresponding `...Type` classes that inherit `ObjectGraphType<T>`. then the schema and query is defined, which are used by the `ui/playground` endpoint for the client side to work it and create queries
 
 a docker image is also available (https://hub.docker.com/r/gkama/dotnet) via `docker pull gkama/dotnet:graphql`
 
@@ -20,6 +20,9 @@ a sample request would go like this
     name
     neighbours {
       name
+    }
+    postalcodes {
+        num_postal_codes
     }
   }
 }
@@ -40,7 +43,10 @@ and the response
           {
             "name": "France"
           }
-        ]
+        ],
+        "postalcodes": {
+          "num_postal_codes": 37867
+        }
       },
       {
         "name": "United States",
@@ -51,7 +57,10 @@ and the response
           {
             "name": "Mexico"
           }
-        ]
+        ],
+        "postalcodes": {
+          "num_postal_codes": 41468
+        }
       }
     ]
   }
