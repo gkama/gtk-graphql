@@ -41,6 +41,7 @@ namespace gkama.graph.ql.core
             services.AddScoped<FakeManager>();
             services.AddScoped<CountryType>();
             services.AddScoped<CountryNeighbourType>();
+            services.AddScoped<CountryPostalCodeType>();
             services.AddScoped<CountryQuery>();
             services.AddScoped<CountrySchema>();
 
