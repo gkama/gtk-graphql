@@ -25,6 +25,12 @@ namespace gkama.graph.ql.services
                 .AsEnumerable();
         }
 
+        public Country GetCountry(string code)
+        {
+            return GetCountryQuery()
+                .FirstOrDefault(x => x.code == code);
+        }
+
         private IQueryable<Country> GetCountryQuery()
         {
             return context

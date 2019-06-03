@@ -52,6 +52,7 @@ namespace gkama.graph.ql.core
              * useful resources
              * https://github.com/graphql-dotnet/graphql-dotnet
              * https://github.com/graphql-dotnet/graphql-dotnet/blob/master/docs/src/getting-started.md
+             * https://graphql-dotnet.github.io/docs/getting-started/introduction
              * https://github.com/graphql-dotnet/examples
              */
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));            

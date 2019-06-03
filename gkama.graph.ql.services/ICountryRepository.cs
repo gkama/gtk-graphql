@@ -7,5 +7,6 @@ namespace gkama.graph.ql.services
     public interface ICountryRepository
     {
         IEnumerable<Country> GetAll();
+        Country GetCountry(string code);
     }
 }

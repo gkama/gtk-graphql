@@ -12,6 +12,17 @@ namespace gkama.graph.ql.services
                 "countries",
                 resolve: context => repo.GetAll()
                 );
+
+            Field<CountryType>(
+                "country",
+                arguments: new QueryArguments(
+                    new QueryArgument<IdGraphType> { Name = "code" }
+                    ),
+                resolve: context =>
+                {
+                    var code = context.GetArgument<string>("code");
+                    return repo.GetCountry(code);
+                });
         }
     }
 }
