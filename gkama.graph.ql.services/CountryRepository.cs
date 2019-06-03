@@ -25,10 +25,16 @@ namespace gkama.graph.ql.services
                 .AsEnumerable();
         }
 
-        public Country GetCountry(string code)
+        public Country GetCountry(int? geoname_id = null, string code = null)
         {
-            return GetCountryQuery()
-                .FirstOrDefault(x => x.code == code);
+            if (geoname_id != null)
+                return GetCountryQuery()
+                    .FirstOrDefault(x => x.geoname_id == geoname_id);
+            else if (code != null)
+                return GetCountryQuery()
+                    .FirstOrDefault(x => x.code == code);
+            else
+                return null;
         }
 
         private IQueryable<Country> GetCountryQuery()

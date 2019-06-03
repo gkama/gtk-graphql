@@ -16,12 +16,15 @@ namespace gkama.graph.ql.services
             Field<CountryType>(
                 "country",
                 arguments: new QueryArguments(
+                    new QueryArgument<IdGraphType> { Name = "geoname_id" },
                     new QueryArgument<IdGraphType> { Name = "code" }
                     ),
                 resolve: context =>
                 {
+                    var id = context.GetArgument<int?>("geoname_id");
                     var code = context.GetArgument<string>("code");
-                    return repo.GetCountry(code);
+
+                    return repo.GetCountry(id, code);
                 });
         }
     }
