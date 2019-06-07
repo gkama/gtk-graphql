@@ -14,7 +14,7 @@ a docker image is also available (https://hub.docker.com/r/gkama/dotnet) via `do
 #### example
 a sample request would go like this
 
-```
+``` graphql
 {
   countries {
     name
@@ -30,7 +30,7 @@ a sample request would go like this
 
 and the response
 
-``` json
+```json
 {
   "data": {
     "countries": [
