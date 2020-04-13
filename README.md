@@ -1,7 +1,7 @@
 ## gkama.graph.ql
 sample project for `GraphQL` for `.NET Core`. it uses the following technologies:
 
-- ASP.NET Core 2.2 API
+- ASP.NET Core 3.1 API
 - GraphQL with ui/playground
 - Entity Framework Core for creating a in-memory database with sample datasets
 - Defined query and schema for countries with neighbouring countries
