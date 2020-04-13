@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using GraphQL.Client;
-using GraphQL.Common.Request;
+using GraphQL;
+using GraphQL.Client.Http;
 
 using gkama.graph.ql.services;
 
@@ -31,7 +34,7 @@ namespace gkama.graph.ql.core.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCountries()
         {
-            using (var graphQLClient = new GraphQLClient("http://localhost:5000/graphql"))
+            using (var graphQLClient = new GraphQLHttpClient("http://localhost:5000/graphql", null))
             {
                 var query = new GraphQLRequest
                 {
@@ -56,7 +59,7 @@ namespace gkama.graph.ql.core.Controllers
                       }",
                 };
 
-                return Ok(await graphQLClient.PostAsync(query));
+                return Ok(await graphQLClient.SendQueryAsync<object>(query));
             }
         }
     }

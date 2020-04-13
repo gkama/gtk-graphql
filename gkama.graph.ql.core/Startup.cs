@@ -2,9 +2,10 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 using GraphQL;
@@ -59,16 +60,17 @@ namespace gkama.graph.ql.core
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
              .AddGraphTypes(ServiceLifetime.Scoped);
 
+            services.Configure<KestrelServerOptions>(o => { o.AllowSynchronousIO = true; });
+
             services.AddMvc()
-               .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                .AddJsonOptions(o =>
                {
-                   o.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                   o.JsonSerializerOptions.WriteIndented = true;
                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -83,7 +85,12 @@ namespace gkama.graph.ql.core
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
 
             app.UseHealthChecks("/ping");
-            app.UseMvc();
+
+            app.UseRouting();
+            app.UseEndpoints(e =>
+            {
+                e.MapControllers();
+            });
         }
     }
 }
