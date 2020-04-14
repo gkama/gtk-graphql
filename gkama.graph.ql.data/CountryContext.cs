@@ -70,8 +70,8 @@ namespace gkama.graph.ql.data
 
                 e.Property(x => x.code).HasColumnName("code").HasMaxLength(2).IsRequired();
                 e.Property(x => x.num_postal_codes).HasColumnName("num_postal_codes").IsRequired();
-                e.Property(x => x.min_postal_code).HasColumnName("min_postal_code").IsRequired();
-                e.Property(x => x.max_postal_code).HasColumnName("max_postal_code").IsRequired();
+                e.Property(x => x.min_postal_code).HasColumnName("min_postal_code").HasMaxLength(20).IsRequired();
+                e.Property(x => x.max_postal_code).HasColumnName("max_postal_code").HasMaxLength(20).IsRequired();
             });
         }
     }
