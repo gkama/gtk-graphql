@@ -10,6 +10,7 @@ namespace gkama.graph.ql.services
     {
         Task<IEnumerable<Country>> GetCountriesAsync();
         Task<Country> GetCountryAsync(int? geoname_id = null, string code = null);
+        Task<Country> AddCountryAsync(Country country);
         Task<CountryPostalCode> GetCountryPostalCodesAsync(string code);
     }
 }

@@ -49,6 +49,26 @@ namespace gkama.graph.ql.services
                 return null;
         }
 
+        public async Task<Country> AddCountryAsync(Country country)
+        {
+            if (country == null)
+                throw new ArgumentNullException($"cannot add a 'country' that is null");
+
+            try
+            {
+                await _context.countries
+                    .AddAsync(country);
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return await GetCountryAsync(country.geoname_id);
+        }
+
         private IQueryable<CountryPostalCode> GetCountryPostalCodesQuery()
         {
             return _context.postal_codes
