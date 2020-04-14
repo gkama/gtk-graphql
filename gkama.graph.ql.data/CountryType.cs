@@ -6,18 +6,34 @@ namespace gkama.graph.ql.data
     {
         public CountryType()
         {
-            Field(a => a.geoname_id);
-            Field(a => a.code);
-            Field(a => a.name);
-            Field(a => a.iso_numeric);
-            Field(a => a.continent);
-            Field(a => a.continent_name);
-            Field(a => a.capital);
-            Field(a => a.population);
-            Field(a => a.currency_code);
+            Field(x => x.geoname_id);
+            Field(x => x.code);
+            Field(x => x.name);
+            Field(x => x.iso_numeric);
+            Field(x => x.continent);
+            Field(x => x.continent_name);
+            Field(x => x.capital);
+            Field(x => x.population);
+            Field(x => x.currency_code);
 
             Field<ListGraphType<CountryNeighbourType>>("neighbours", resolve: context => context.Source.neighbour_countries);
             Field<CountryPostalCodeType>("postalcodes", resolve: context => context.Source.postal_codes);
+        }
+    }
+
+    public class InputCountryType : InputObjectGraphType<Country>
+    {
+        public InputCountryType()
+        {
+            Field(x => x.geoname_id);
+            Field(x => x.code);
+            Field(x => x.name);
+            Field(x => x.iso_numeric);
+            Field(x => x.continent);
+            Field(x => x.continent_name);
+            Field(x => x.capital);
+            Field(x => x.population);
+            Field(x => x.currency_code);
         }
     }
 }
