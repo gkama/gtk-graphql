@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -10,41 +12,53 @@ namespace gkama.graph.ql.services
 {
     public class CountryRepository : ICountryRepository
     {
-        public readonly CountryContext context;
-        public readonly ILogger log;
+        public readonly CountryContext _context;
+        public readonly ILogger _logger;
 
-        public CountryRepository(CountryContext context, ILogger<CountryRepository> log)
+        public CountryRepository(CountryContext context, ILogger<CountryRepository> logger)
         {
-            this.context = context;
-            this.log = log;
-        }
-
-        public IEnumerable<Country> GetAll()
-        {
-            return GetCountryQuery()
-                .AsEnumerable();
-        }
-
-        public Country GetCountry(int? geoname_id = null, string code = null)
-        {
-            if (geoname_id != null)
-                return GetCountryQuery()
-                    .FirstOrDefault(x => x.geoname_id == geoname_id);
-            else if (code != null)
-                return GetCountryQuery()
-                    .FirstOrDefault(x => x.code == code);
-            else
-                return null;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         private IQueryable<Country> GetCountryQuery()
         {
-            return context
+            return _context
                 .countries
                     .Include(x => x.neighbour_countries)
                         .ThenInclude(x => x.postal_codes)
                     .Include(x => x.postal_codes)
                 .AsQueryable();
+        }
+
+        public async Task<IEnumerable<Country>> GetCountriesAsync()
+        {
+            return await GetCountryQuery()
+                .ToListAsync();
+        }
+
+        public async Task<Country> GetCountryAsync(int? geoname_id = null, string code = null)
+        {
+            if (geoname_id != null)
+                return await GetCountryQuery()
+                    .FirstOrDefaultAsync(x => x.geoname_id == geoname_id);
+            else if (code != null)
+                return await GetCountryQuery()
+                    .FirstOrDefaultAsync(x => x.code == code);
+            else
+                return null;
+        }
+
+        private IQueryable<CountryPostalCode> GetCountryPostalCodesQuery()
+        {
+            return _context.postal_codes
+                .AsQueryable();
+        }
+
+        public async Task<CountryPostalCode> GetCountryPostalCodesAsync(string code)
+        {
+            return await GetCountryPostalCodesQuery()
+                .FirstOrDefaultAsync(x => x.code == code);
         }
     }
 }
