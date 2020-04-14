@@ -16,18 +16,18 @@ namespace gkama.graph.ql.core.Controllers
     [ApiController]
     public class CountryController : ControllerBase
     {
-        public readonly ICountryRepository repo;
+        public readonly ICountryRepository _repo;
         
         public CountryController(ICountryRepository repo)
         {
-            this.repo = repo;
+            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
 
         [Route("countries/all")]
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetCountriesAsync()
         {
-            return Ok(repo.GetAll());
+            return Ok(await _repo.GetCountriesAsync());
         }
 
         [Route("graphql/countries/all")]

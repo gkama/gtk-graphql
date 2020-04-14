@@ -1,4 +1,6 @@
-﻿using GraphQL.Types;
+﻿using System;
+
+using GraphQL.Types;
 
 using gkama.graph.ql.data;
 
@@ -6,25 +8,25 @@ namespace gkama.graph.ql.services
 {
     public class CountryQuery : ObjectGraphType
     {
-        public CountryQuery(ICountryRepository repo)
+        public CountryQuery(ICountryRepository _repo)
         {
-            Field<ListGraphType<CountryType>>(
+            FieldAsync<ListGraphType<CountryType>>(
                 "countries",
-                resolve: context => repo.GetAll()
+                resolve: async context => await _repo.GetCountriesAsync()
                 );
 
-            Field<CountryType>(
+            FieldAsync<CountryType>(
                 "country",
                 arguments: new QueryArguments(
                     new QueryArgument<IdGraphType> { Name = "geoname_id" },
                     new QueryArgument<IdGraphType> { Name = "code" }
                     ),
-                resolve: context =>
+                resolve: async context =>
                 {
                     var id = context.GetArgument<int?>("geoname_id");
                     var code = context.GetArgument<string>("code");
 
-                    return repo.GetCountry(id, code);
+                    return await _repo.GetCountryAsync(id, code);
                 });
         }
     }
