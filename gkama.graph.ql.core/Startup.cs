@@ -44,6 +44,8 @@ namespace gkama.graph.ql.core
             services.AddScoped<CountryNeighbourType>();
             services.AddScoped<CountryPostalCodeType>();
             services.AddScoped<CountryQuery>();
+            services.AddScoped<InputCountryType>();
+            services.AddScoped<CountryMutation>();
             services.AddScoped<CountrySchema>();
 
             services.AddDbContext<CountryContext>(o => o.UseInMemoryDatabase(nameof(CountryContext)));
@@ -58,7 +60,7 @@ namespace gkama.graph.ql.core
              */
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));            
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
-             .AddGraphTypes(ServiceLifetime.Scoped);
+                .AddGraphTypes(ServiceLifetime.Scoped);
 
             services.Configure<KestrelServerOptions>(o => { o.AllowSynchronousIO = true; });
 
