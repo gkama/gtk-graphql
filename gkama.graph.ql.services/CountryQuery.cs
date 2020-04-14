@@ -28,6 +28,18 @@ namespace gkama.graph.ql.services
 
                     return await _repo.GetCountryAsync(id, code);
                 });
+
+            FieldAsync<CountryPostalCodeType>(
+                "countryPostalCode",
+                arguments: new QueryArguments(
+                    new QueryArgument<IdGraphType> { Name = "code" }
+                ),
+                resolve: async context =>
+                {
+                    var code = context.GetArgument<string>("code");
+
+                    return await _repo.GetCountryPostalCodesAsync(code);
+                });
         }
     }
 }
